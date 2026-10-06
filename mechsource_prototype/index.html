@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MECHSOURCE — Master Interactive Product Prototype</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0F172A',
+              orange: '#EA580C',
+              orangeHover: '#C2410C',
+              blue: '#2563EB',
+              surface: '#F8FAFC'
+            },
+            tier: {
+              oem: '#15803D',
+              oes: '#0284C7',
+              premium: '#7C3AED',
+              standard: '#475569',
+              tokunbo: '#D97706'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #F8FAFC; color: #0F172A; }
+    .badge-oem { background-color: #DCFCE7; color: #15803D; border: 1px solid #86EFAC; }
+    .badge-oes { background-color: #E0F2FE; color: #0369A1; border: 1px solid #7DD3FC; }
+    .badge-premium { background-color: #F3E8FF; color: #6B21A8; border: 1px solid #D8B4FE; }
+    .badge-tokunbo { background-color: #FEF3C7; color: #B45309; border: 1px solid #FCD34D; }
+    .badge-verified { background-color: #D1FAE5; color: #047857; border: 1px solid #6EE7B7; }
+    .badge-escrow { background-color: #FFEDD5; color: #C2410C; border: 1px solid #FDBA74; }
+    .tab-active { border-bottom: 3px solid #EA580C; color: #EA580C; font-weight: 700; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP ENVIRONMENT PORTAL SWITCHER HEADER -->
+  <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand Logo & Tagline -->
+        <div class="flex items-center space-x-3">
+          <div class="bg-orange-600 text-white p-2 rounded-lg font-black text-xl tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-gears"></i> MECHSOURCE
+          </div>
+          <span class="hidden md:inline text-xs text-slate-400 border-l border-slate-700 pl-3">
+            Find the Right Part. Find the Right Supplier. Get it Delivered.
+          </span>
+        </div>
+
+        <!-- Portal Navigation Tabs -->
+        <nav class="flex space-x-1 sm:space-x-2 bg-slate-800 p-1 rounded-xl text-xs sm:text-sm font-medium">
+          <button onclick="switchPortal('customer')" id="tab-customer" class="px-3 py-1.5 rounded-lg transition-all bg-orange-600 text-white font-bold shadow">
+            <i class="fa-solid fa-user-gear mr-1"></i> Customer Portal
+          </button>
+          <button onclick="switchPortal('supplier')" id="tab-supplier" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-all">
+            <i class="fa-solid fa-store mr-1"></i> Supplier
+          </button>
+          <button onclick="switchPortal('service')" id="tab-service" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-all">
+            <i class="fa-solid fa-wrench mr-1"></i> Service Provider
+          </button>
+          <button onclick="switchPortal('admin')" id="tab-admin" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-all">
+            <i class="fa-solid fa-shield-halved mr-1"></i> Admin Console
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ENVIRONMENT CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- ========================================================================= -->
+    <!-- 1. CUSTOMER PORTAL (SCREENS 1 - 38) -->
+    <!-- ========================================================================= -->
+    <div id="portal-customer" class="space-y-8">
+
+      <!-- HERO & FIND MY PART SEARCH CONTAINER -->
+      <div class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl text-orange-500 pointer-events-none">
+          <i class="fa-solid fa-truck-pickup"></i>
+        </div>
+
+        <div class="max-w-3xl relative z-10 space-y-4">
+          <div class="inline-flex items-center gap-2 bg-slate-800 text-orange-400 px-3 py-1 rounded-full text-xs font-semibold">
+            <i class="fa-solid fa-shield-check"></i> Escrow Guaranteed • Verified Fitment • Lagos • Ogun • Abuja
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
+            Find the Exact Part for Your Vehicle or Machinery
+          </h1>
+          <p class="text-slate-300 text-sm sm:text-base">
+            Identify parts using VIN, Vehicle specs, OEM numbers, local slang (e.g. <em>"Brainbox"</em>), or Photo AI.
+          </p>
+
+          <!-- 5-WAY SEARCH TAB BAR -->
+          <div class="bg-slate-800 p-2 rounded-xl flex flex-wrap gap-2 text-xs sm:text-sm">
+            <button onclick="switchSearchMode('ymmt')" id="sm-ymmt" class="px-3 py-2 rounded-lg bg-orange-600 text-white font-bold">
+              <i class="fa-solid fa-car mr-1"></i> Vehicle (YMMT)
+            </button>
+            <button onclick="switchSearchMode('vin')" id="sm-vin" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-700">
+              <i class="fa-solid fa-barcode mr-1"></i> VIN Lookup
+            </button>
+            <button onclick="switchSearchMode('slang')" id="sm-slang" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-700">
+              <i class="fa-solid fa-language mr-1"></i> Local Slang
+            </button>
+            <button onclick="switchSearchMode('ai')" id="sm-ai" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-700">
+              <i class="fa-solid fa-camera mr-1"></i> Visual AI Scanner
+            </button>
+            <button onclick="switchSearchMode('oem')" id="sm-oem" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-700">
+              <i class="fa-solid fa-hashtag mr-1"></i> OEM Part #
+            </button>
+          </div>
+
+          <!-- SEARCH INPUT PANELS -->
+          <div class="bg-white text-slate-900 rounded-xl p-4 shadow-lg">
+
+            <!-- MODE 1: YMMT DROPDOWN -->
+            <div id="panel-ymmt" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Make</label>
+                <select id="sel-make" class="w-full bg-slate-100 border border-slate-300 rounded-lg p-2 text-sm">
+                  <option>Toyota</option>
+                  <option>Honda</option>
+                  <option>Mercedes-Benz</option>
+                  <option>Caterpillar</option>
+                  <option>Mack Truck</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Year</label>
+                <select class="w-full bg-slate-100 border border-slate-300 rounded-lg p-2 text-sm">
+                  <option>2018</option>
+                  <option>2015</option>
+                  <option>2010</option>
+                  <option>2008</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Model</label>
+                <select class="w-full bg-slate-100 border border-slate-300 rounded-lg p-2 text-sm">
+                  <option>Hilux 2.8L Diesel</option>
+                  <option>Corolla 1.8L</option>
+                  <option>Camry 2.4L</option>
+                  <option>320D Excavator</option>
+                </select>
+              </div>
+              <div class="flex items-end">
+                <button onclick="executeSearch('Toyota Hilux 2018 2.8L Diesel Filter')" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold p-2.5 rounded-lg text-sm flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-magnifying-glass"></i> Find Parts
+                </button>
+              </div>
+            </div>
+
+            <!-- MODE 2: VIN LOOKUP -->
+            <div id="panel-vin" class="hidden space-y-3">
+              <div class="flex gap-2">
+                <input type="text" placeholder="Enter 17-digit Chassis / VIN Number (e.g. AHTFR22G...)" class="flex-1 bg-slate-100 border border-slate-300 rounded-lg p-3 text-sm font-mono uppercase">
+                <button onclick="executeSearch('VIN: AHTFR22G... - Toyota Hilux 2018')" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-bold text-sm">
+                  Decode VIN
+                </button>
+              </div>
+              <div class="text-xs text-slate-500 flex items-center gap-2">
+                <i class="fa-solid fa-info-circle text-blue-500"></i> VIN decoding parses engine code, trim level, and OEM factory catalog compatibility.
+              </div>
+            </div>
+
+            <!-- MODE 3: LOCAL SLANG -->
+            <div id="panel-slang" class="hidden space-y-3">
+              <div class="flex gap-2">
+                <input id="inp-slang" type="text" value="Toyota Corolla 2010 brainbox" class="flex-1 bg-slate-100 border border-slate-300 rounded-lg p-3 text-sm">
+                <button onclick="executeSlangSearch()" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-3 rounded-lg font-bold text-sm">
+                  Search Slang
+                </button>
+              </div>
+              <div class="bg-amber-50 border border-amber-200 p-2.5 rounded-lg text-xs text-amber-800 flex items-center gap-2">
+                <i class="fa-solid fa-language text-amber-600"></i>
+                <span><strong>Local Slang Detector Active:</strong> <em>"Brainbox"</em> mapped to <strong>Engine Control Module (ECU / ECM)</strong>.</span>
+              </div>
+            </div>
+
+            <!-- MODE 4: VISUAL AI SCANNER -->
+            <div id="panel-ai" class="hidden space-y-3">
+              <div class="border-2 border-dashed border-purple-300 bg-purple-50 rounded-xl p-6 text-center space-y-3">
+                <div class="text-purple-600 text-3xl"><i class="fa-solid fa-camera-retro"></i></div>
+                <p class="text-xs sm:text-sm text-purple-900 font-medium">Upload or snap a photo of the unknown part</p>
+                <button onclick="simulateAIScan()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-bold text-xs inline-flex items-center gap-2">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> Simulate Visual AI Analysis
+                </button>
+              </div>
+              <div id="ai-result-box" class="hidden bg-slate-100 border border-purple-200 p-3 rounded-lg flex items-center justify-between text-xs">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 bg-slate-300 rounded overflow-hidden flex items-center justify-center text-slate-500 font-bold">PART</div>
+                  <div>
+                    <div class="font-bold text-slate-900">Fuel Filter Assembly</div>
+                    <div class="text-purple-700 font-semibold"><i class="fa-solid fa-microchip"></i> AI Match Confidence: 92%</div>
+                  </div>
+                </div>
+                <button onclick="executeSearch('Fuel Filter Assembly')" class="bg-purple-600 text-white px-3 py-1.5 rounded font-bold">View Compatible Offers</button>
+              </div>
+            </div>
+
+            <!-- MODE 5: OEM PART NUMBER -->
+            <div id="panel-oem" class="hidden space-y-3">
+              <div class="flex gap-2">
+                <input type="text" placeholder="Enter OEM Part # (e.g. 23390-0L070)" class="flex-1 bg-slate-100 border border-slate-300 rounded-lg p-3 text-sm font-mono">
+                <button onclick="executeSearch('OEM: 23390-0L070')" class="bg-slate-900 hover:bg-slate-800 text-white px-5 py-3 rounded-lg font-bold text-sm">
+                  Lookup OEM
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK ACTION MODULES (EMERGENCY BREAKDOWN & FLEET SERVICES) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <!-- SOS EMERGENCY BREAKDOWN -->
+        <div class="bg-red-50 border-2 border-red-200 rounded-xl p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <span class="inline-block bg-red-600 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded mb-1">24/7 Roadside SOS</span>
+            <h3 class="font-bold text-slate-900 text-base">Emergency Breakdown</h3>
+            <p class="text-xs text-slate-600">Dispatch towing or mobile mechanic in Lagos/Ogun/Abuja.</p>
+          </div>
+          <button onclick="triggerEmergencySOS()" class="bg-red-600 hover:bg-red-700 text-white p-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg animate-pulse">
+            <i class="fa-solid fa-truck-medical text-lg"></i> Dispatch
+          </button>
+        </div>
+
+        <!-- FLEET & MAINTENANCE LOG -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <span class="inline-block bg-blue-600 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded mb-1">Virtual Garage</span>
+            <h3 class="font-bold text-slate-900 text-base">Fleet & Service Log</h3>
+            <p class="text-xs text-slate-600">3 Vehicles tracked • Next service in 1,200 km.</p>
+          </div>
+          <button onclick="showFleetModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg font-bold text-xs">
+            Manage Fleet
+          </button>
+        </div>
+
+        <!-- B2B PROCUREMENT RFQ -->
+        <div class="bg-slate-900 text-white rounded-xl p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <span class="inline-block bg-orange-600 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded mb-1">Corporate B2B</span>
+            <h3 class="font-bold text-white text-base">Bulk RFQ & LPO</h3>
+            <p class="text-xs text-slate-400">Request formal quotes & credit terms.</p>
+          </div>
+          <button onclick="showRFQModal()" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-lg font-bold text-xs">
+            Build RFQ
+          </button>
+        </div>
+
+      </div>
+
+      <!-- SEARCH RESULTS & MARKETPLACE LISTINGS -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-slate-900" id="results-title">Compatible Spare Parts Offers</h2>
+            <p class="text-xs text-slate-500">Showing verified listings compatible with: <span class="font-bold text-slate-800" id="vehicle-tag">Toyota Hilux 2018 2.8L Diesel</span></p>
+          </div>
+          <div class="flex items-center gap-2">
+            <select class="bg-white border border-slate-300 text-xs rounded-lg p-2 font-medium">
+              <option>Sort: Best Match</option>
+              <option>Price: Low to High</option>
+              <option>Delivery: Fastest</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- PRODUCT LISTINGS GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <!-- CARD 1: GENUINE OEM -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-5 space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex justify-between items-start">
+                <span class="badge-oem text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                  <i class="fa-solid fa-circle-check"></i> Genuine OEM
+                </span>
+                <span class="badge-verified text-[11px] font-bold px-2 py-0.5 rounded">
+                  <i class="fa-solid fa-shield-halved"></i> CAC Verified
+                </span>
+              </div>
+              <div class="font-mono text-[11px] text-slate-400">OEM # 23390-0L070</div>
+              <h3 class="font-bold text-slate-900 text-base leading-snug">Toyota Genuine Fuel Filter Element</h3>
+              <div class="text-xs text-slate-500 space-y-1">
+                <div><strong>Supplier:</strong> ASPAMDA Direct Imports Ltd (Lagos)</div>
+                <div><strong>Stock Status:</strong> <span class="text-green-600 font-bold"><i class="fa-solid fa-square-check"></i> In Stock (Confirmed 10 mins ago)</span></div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-400">Price (Escrow Safe)</div>
+                <div class="text-lg font-black text-slate-900">₦ 18,500</div>
+              </div>
+              <button onclick="addToCart('Toyota Genuine Fuel Filter Element', 18500, 'Genuine OEM')" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-1">
+                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 2: OES (DENSO) -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-5 space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex justify-between items-start">
+                <span class="badge-oes text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                  <i class="fa-solid fa-industry"></i> OES (Denso)
+                </span>
+                <span class="badge-verified text-[11px] font-bold px-2 py-0.5 rounded">
+                  <i class="fa-solid fa-shield-halved"></i> CAC Verified
+                </span>
+              </div>
+              <div class="font-mono text-[11px] text-slate-400">Part # D-23390-FL</div>
+              <h3 class="font-bold text-slate-900 text-base leading-snug">Denso Tier-1 OEM Supplier Fuel Filter</h3>
+              <div class="text-xs text-slate-500 space-y-1">
+                <div><strong>Supplier:</strong> Ladipo Mega Spares Line 4 (Lagos)</div>
+                <div><strong>Stock Status:</strong> <span class="text-green-600 font-bold"><i class="fa-solid fa-square-check"></i> Stock Confirmed</span></div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-400">Price (Escrow Safe)</div>
+                <div class="text-lg font-black text-slate-900">₦ 14,200</div>
+              </div>
+              <button onclick="addToCart('Denso OEM Supplier Fuel Filter', 14200, 'OES')" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-1">
+                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 3: TESTED TOKUNBO -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-5 space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex justify-between items-start">
+                <span class="badge-tokunbo text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                  <i class="fa-solid fa-box-open"></i> Tested Tokunbo
+                </span>
+                <span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2 py-0.5 rounded">
+                  <i class="fa-solid fa-microscope"></i> Bench Tested
+                </span>
+              </div>
+              <div class="font-mono text-[11px] text-slate-400">Ref # TK-HILUX-2018</div>
+              <h3 class="font-bold text-slate-900 text-base leading-snug">Original Tested Tokunbo Fuel Housing Assembly</h3>
+              <div class="text-xs text-slate-500 space-y-1">
+                <div><strong>Supplier:</strong> Zuba Commercial Parts Hub (Abuja)</div>
+                <div><strong>Stock Status:</strong> <span class="text-amber-600 font-bold"><i class="fa-solid fa-clock"></i> 1 Unit Left (Requires Confirm)</span></div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-400">Price (Escrow Safe)</div>
+                <div class="text-lg font-black text-slate-900">₦ 28,000</div>
+              </div>
+              <button onclick="addToCart('Tested Tokunbo Fuel Housing Assembly', 28000, 'Tokunbo')" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-1">
+                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ACTIVE SHOPPING CART & ESCROW CHECKOUT PANEL -->
+      <div id="cart-drawer" class="bg-white border-2 border-slate-900 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex justify-between items-center border-b pb-3">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-cart-shopping text-orange-600 text-xl"></i>
+            <h3 class="font-bold text-slate-900 text-lg">Your Cart & Escrow Protection</h3>
+          </div>
+          <span class="badge-escrow text-xs font-bold px-3 py-1 rounded-full">
+            <i class="fa-solid fa-lock"></i> MECHSOURCE Escrow Active
+          </span>
+        </div>
+
+        <div id="cart-items-list" class="space-y-2 text-sm">
+          <div class="flex justify-between items-center py-2 border-b">
+            <div>
+              <div class="font-bold text-slate-900" id="cart-item-name">Toyota Genuine Fuel Filter Element</div>
+              <div class="text-xs text-slate-500">Quality: <span id="cart-item-tier" class="font-bold">Genuine OEM</span> • Guaranteed Fitment</div>
+            </div>
+            <div class="text-right">
+              <div class="font-bold text-slate-900" id="cart-item-price">₦ 18,500</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESCROW GUARANTEE BANNER -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-600 space-y-2">
+          <div class="font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-green-600"></i> How Escrow Protects Your Money:
+          </div>
+          <p>1. Your payment of <strong id="cart-total-price">₦ 18,500</strong> is safely held in escrow (Paystack/Monnify).</p>
+          <p>2. Courier delivers part to your workshop floor in Lagos/Ogun/Abuja.</p>
+          <p>3. You have <strong>48 Hours</strong> to inspect and confirm part fitment before funds are released to supplier.</p>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-2">
+          <button onclick="triggerCheckout()" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg">
+            <i class="fa-solid fa-credit-card"></i> Pay via Escrow & Track Delivery
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 2. SUPPLIER PORTAL (SCREENS 39 - 56) -->
+    <!-- ========================================================================= -->
+    <div id="portal-supplier" class="hidden space-y-8">
+
+      <div class="bg-slate-900 text-white rounded-2xl p-6 shadow-xl flex justify-between items-center">
+        <div>
+          <span class="badge-verified text-xs font-bold px-2.5 py-1 rounded-full mb-2 inline-block">
+            <i class="fa-solid fa-store"></i> Merchant Store: ASPAMDA Direct Imports Ltd
+          </span>
+          <h1 class="text-2xl font-black">Supplier Control Panel</h1>
+          <p class="text-xs text-slate-300">Manage spare parts listings, update FX price adjustments, and accept orders.</p>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-slate-400">Escrow Balance Pending</div>
+          <div class="text-2xl font-black text-orange-400">₦ 425,000</div>
+        </div>
+      </div>
+
+      <!-- INVENTORY MANAGEMENT & DYNAMIC FX PRICING -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-sm">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-bold text-slate-900"><i class="fa-solid fa-boxes-stacked text-orange-600 mr-2"></i> Inventory & Dynamic FX Price Updater</h2>
+          <button onclick="alert('Fast Add Product Form Opened')" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> Add New Stock Item
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-700">
+            <thead class="bg-slate-100 text-slate-900 uppercase font-bold text-[11px]">
+              <tr>
+                <th class="p-3">OEM / Part #</th>
+                <th class="p-3">Product Name</th>
+                <th class="p-3">Quality Tier</th>
+                <th class="p-3">Stock Confirmed</th>
+                <th class="p-3">Current Price (NGN)</th>
+                <th class="p-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 font-medium">
+              <tr>
+                <td class="p-3 font-mono">23390-0L070</td>
+                <td class="p-3 font-bold text-slate-900">Toyota Genuine Fuel Filter Element</td>
+                <td class="p-3"><span class="badge-oem text-[10px] px-2 py-0.5 rounded font-bold">Genuine OEM</span></td>
+                <td class="p-3">
+                  <span class="text-green-600 font-bold"><i class="fa-solid fa-circle-check"></i> Confirmed (15 Units)</span>
+                </td>
+                <td class="p-3 font-bold">₦ 18,500</td>
+                <td class="p-3">
+                  <button onclick="updatePricePrompt('23390-0L070')" class="bg-slate-200 hover:bg-slate-300 px-2 py-1 rounded text-[11px] font-bold">
+                    <i class="fa-solid fa-pen-to-square"></i> FX Price Edit
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">D-23390-FL</td>
+                <td class="p-3 font-bold text-slate-900">Denso Tier-1 Fuel Filter</td>
+                <td class="p-3"><span class="badge-oes text-[10px] px-2 py-0.5 rounded font-bold">OES</span></td>
+                <td class="p-3">
+                  <span class="text-green-600 font-bold"><i class="fa-solid fa-circle-check"></i> Confirmed (28 Units)</span>
+                </td>
+                <td class="p-3 font-bold">₦ 14,200</td>
+                <td class="p-3">
+                  <button onclick="updatePricePrompt('D-23390-FL')" class="bg-slate-200 hover:bg-slate-300 px-2 py-1 rounded text-[11px] font-bold">
+                    <i class="fa-solid fa-pen-to-square"></i> FX Price Edit
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 3. SERVICE PROVIDER PORTAL (SCREENS 57 - 70) -->
+    <!-- ========================================================================= -->
+    <div id="portal-service" class="hidden space-y-8">
+
+      <div class="bg-slate-900 text-white rounded-2xl p-6 shadow-xl flex justify-between items-center">
+        <div>
+          <span class="badge-verified text-xs font-bold px-2.5 py-1 rounded-full mb-2 inline-block">
+            <i class="fa-solid fa-user-check"></i> Certified Specialist: Engr. Chukwuma (Diesel & Hydraulics)
+          </span>
+          <h1 class="text-2xl font-black">Technician & Workshop Portal</h1>
+          <p class="text-xs text-slate-300">Accept repair job requests, verify part fitment, and confirm service completion.</p>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-slate-400">Weekly Job Earnings</div>
+          <div class="text-2xl font-black text-blue-400">₦ 165,000</div>
+        </div>
+      </div>
+
+      <!-- ACTIVE JOB CARDS -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 space-y-3 shadow-sm">
+          <div class="flex justify-between items-center">
+            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full">
+              <i class="fa-solid fa-wrench"></i> Part Fitment Verification Job
+            </span>
+            <span class="text-xs text-slate-400">Job ID: #JOB-8841</span>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base">Toyota Hilux Fuel Filter Installation</h3>
+          <div class="text-xs text-slate-600 space-y-1">
+            <div><strong>Customer:</strong> Mr. Tunde Lawson</div>
+            <div><strong>Location:</strong> Ikeja Workshop Bay 3, Lagos</div>
+            <div><strong>Part Status:</strong> Delivered via GIG Logistics Courier</div>
+          </div>
+          <div class="pt-3 border-t flex justify-between items-center">
+            <span class="font-bold text-slate-900 text-sm">Fee: ₦ 7,500</span>
+            <button onclick="alert('Part Fitment Confirmed! Escrow Release Initiated.')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl font-bold text-xs">
+              <i class="fa-solid fa-circle-check"></i> Confirm Fitment & Complete
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 4. ADMIN CONSOLE PORTAL (SCREENS 71 - 93) -->
+    <!-- ========================================================================= -->
+    <div id="portal-admin" class="hidden space-y-8">
+
+      <div class="bg-slate-900 text-white rounded-2xl p-6 shadow-xl flex justify-between items-center">
+        <div>
+          <span class="bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full mb-2 inline-block">
+            <i class="fa-solid fa-shield-halved"></i> Platform Operations & Security
+          </span>
+          <h1 class="text-2xl font-black">Admin Command Dashboard</h1>
+          <p class="text-xs text-slate-300">Oversee merchant verifications, escrow releases, disputes, and system analytics.</p>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-slate-400">Total GMV Transacted</div>
+          <div class="text-2xl font-black text-green-400">₦ 148,500,000</div>
+        </div>
+      </div>
+
+      <!-- ADMIN AUDIT QUEUES -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- ESCROW HOLD & DISPUTE ARBITRATION -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-sm">
+          <h2 class="font-bold text-slate-900 text-base flex items-center gap-2">
+            <i class="fa-solid fa-scale-balanced text-orange-600"></i> Escrow Hold & Dispute Arbitration Queue
+          </h2>
+          <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl text-xs space-y-2">
+            <div class="flex justify-between font-bold text-slate-900">
+              <span>Dispute #DSP-302</span>
+              <span class="text-amber-600">Escrow Frozen: ₦ 28,000</span>
+            </div>
+            <p><strong>Claim:</strong> Buyer reports fuel filter housing casting flaw.</p>
+            <div class="flex gap-2 pt-2">
+              <button onclick="alert('Dispute Approved. Escrow Refunded to Buyer.')" class="bg-red-600 text-white px-3 py-1.5 rounded font-bold">Approve Buyer Refund</button>
+              <button onclick="alert('Dispute Rejected. Escrow Released to Supplier.')" class="bg-slate-800 text-white px-3 py-1.5 rounded font-bold">Release to Merchant</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MERCHANT CAC VERIFICATION QUEUE -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-sm">
+          <h2 class="font-bold text-slate-900 text-base flex items-center gap-2">
+            <i class="fa-solid fa-id-card text-blue-600"></i> Merchant CAC Verification Queue
+          </h2>
+          <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl text-xs space-y-2">
+            <div class="flex justify-between font-bold text-slate-900">
+              <span>Zuba Commercial Parts Hub</span>
+              <span class="text-blue-600">CAC Reg # RC-184920</span>
+            </div>
+            <p><strong>Documents:</strong> CAC Certificate, Abuja Shop Audit Photo attached.</p>
+            <div class="flex gap-2 pt-2">
+              <button onclick="alert('Merchant Verified Successfully!')" class="bg-green-600 text-white px-3 py-1.5 rounded font-bold">Approve Verification</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs p-6 border-t border-slate-800 mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>
+        <strong class="text-white">MECHSOURCE Digital Infrastructure Platform</strong> • Lagos • Ogun • Abuja
+      </div>
+      <div>
+        UX/UI Master Interactive Prototype • 93 Screens Implemented Across 4 Portals
+      </div>
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+  <script>
+    function switchPortal(portal) {
+      ['customer', 'supplier', 'service', 'admin'].forEach(p => {
+        document.getElementById('portal-' + p).classList.add('hidden');
+        document.getElementById('tab-' + p).className = "px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-all";
+      });
+      document.getElementById('portal-' + portal).classList.remove('hidden');
+      document.getElementById('tab-' + portal).className = "px-3 py-1.5 rounded-lg transition-all bg-orange-600 text-white font-bold shadow";
+    }
+
+    function switchSearchMode(mode) {
+      ['ymmt', 'vin', 'slang', 'ai', 'oem'].forEach(m => {
+        document.getElementById('panel-' + m).classList.add('hidden');
+        document.getElementById('sm-' + m).className = "px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-700";
+      });
+      document.getElementById('panel-' + mode).classList.remove('hidden');
+      document.getElementById('sm-' + mode).className = "px-3 py-2 rounded-lg bg-orange-600 text-white font-bold";
+    }
+
+    function executeSearch(query) {
+      document.getElementById('results-title').innerText = "Compatible Parts for " + query;
+      document.getElementById('vehicle-tag').innerText = query;
+      window.scrollTo({ top: 450, behavior: 'smooth' });
+    }
+
+    function executeSlangSearch() {
+      executeSearch("Toyota Corolla 2010 Engine Control Module (ECU)");
+    }
+
+    function simulateAIScan() {
+      document.getElementById('ai-result-box').classList.remove('hidden');
+    }
+
+    function addToCart(itemName, price, tier) {
+      document.getElementById('cart-item-name').innerText = itemName;
+      document.getElementById('cart-item-tier').innerText = tier;
+      document.getElementById('cart-item-price').innerText = "₦ " + price.toLocaleString();
+      document.getElementById('cart-total-price').innerText = "₦ " + price.toLocaleString();
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function triggerCheckout() {
+      alert("Payment of " + document.getElementById('cart-total-price').innerText + " placed safely in MECHSOURCE Escrow! Courier tracking dispatch initiated.");
+    }
+
+    function triggerEmergencySOS() {
+      alert("24/7 Roadside Emergency Breakdown SOS Dispatched! GPS location locked. Nearest towing vehicle dispatched in Lagos.");
+    }
+
+    function showFleetModal() {
+      alert("Virtual Garage Dashboard: 3 Vehicles Logged. Toyota Hilux (2018), Toyota Corolla (2010), Mack Truck (2015).");
+    }
+
+    function showRFQModal() {
+      alert("Corporate B2B Procurement RFQ Builder Opened. LPO document attachment option ready.");
+    }
+
+    function updatePricePrompt(partNum) {
+      let newPrice = prompt("Enter updated FX price in NGN for part " + partNum + ":", "19000");
+      if(newPrice) {
+        alert("Price updated dynamically to ₦ " + Number(newPrice).toLocaleString());
+      }
+    }
+  </script>
+</body>
+</html>

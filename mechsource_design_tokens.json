@@ -1,0 +1,249 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "name": "MECHSOURCE Industrial Design System Tokens",
+  "version": "1.0.0",
+  "color": {
+    "brand": {
+      "primary": {
+        "value": "#0F172A",
+        "type": "color",
+        "comment": "Slate 900 - Industrial Core Dark Accent"
+      },
+      "accent": {
+        "value": "#EA580C",
+        "type": "color",
+        "comment": "Orange 600 - Mechanical / Safety Accent Orange"
+      },
+      "accent_hover": {
+        "value": "#C2410C",
+        "type": "color",
+        "comment": "Orange 700"
+      },
+      "secondary": {
+        "value": "#2563EB",
+        "type": "color",
+        "comment": "Blue 600 - Trust / Logistics Blue"
+      },
+      "surface": {
+        "value": "#F8FAFC",
+        "type": "color",
+        "comment": "Slate 50 - Primary Surface Background"
+      }
+    },
+    "quality_tier": {
+      "genuine_oem": {
+        "value": "#15803D",
+        "type": "color",
+        "comment": "Green 700 - Genuine OEM (Factory Original)"
+      },
+      "oes": {
+        "value": "#0284C7",
+        "type": "color",
+        "comment": "Sky 600 - Original Equipment Supplier"
+      },
+      "premium_aftermarket": {
+        "value": "#7C3AED",
+        "type": "color",
+        "comment": "Violet 600 - Premium Certified Aftermarket"
+      },
+      "standard_aftermarket": {
+        "value": "#475569",
+        "type": "color",
+        "comment": "Slate 600 - Standard Replacement"
+      },
+      "tokunbo_reconditioned": {
+        "value": "#D97706",
+        "type": "color",
+        "comment": "Amber 600 - Tested Tokunbo / Used"
+      }
+    },
+    "trust_badge": {
+      "verified_merchant": {
+        "value": "#059669",
+        "type": "color",
+        "comment": "Emerald 600 - CAC & Shop Verified"
+      },
+      "ai_assisted": {
+        "value": "#6D28D9",
+        "type": "color",
+        "comment": "Purple 700 - AI Prediction Score"
+      },
+      "human_verified": {
+        "value": "#2563EB",
+        "type": "color",
+        "comment": "Blue 600 - Verified by Technician/Expert"
+      },
+      "stock_confirmed": {
+        "value": "#16A34A",
+        "type": "color",
+        "comment": "Green 600 - Real-time Stock Lock"
+      },
+      "stock_unconfirmed": {
+        "value": "#CA8A04",
+        "type": "color",
+        "comment": "Yellow 600 - Needs Supplier Confirmation"
+      }
+    },
+    "status": {
+      "success": {
+        "value": "#16A34A",
+        "type": "color"
+      },
+      "warning": {
+        "value": "#EAB308",
+        "type": "color"
+      },
+      "danger": {
+        "value": "#DC2626",
+        "type": "color"
+      },
+      "info": {
+        "value": "#0284C7",
+        "type": "color"
+      },
+      "escrow_hold": {
+        "value": "#D97706",
+        "type": "color",
+        "comment": "Escrow Payment Held in Trust"
+      }
+    },
+    "neutral": {
+      "50": {
+        "value": "#F8FAFC",
+        "type": "color"
+      },
+      "100": {
+        "value": "#F1F5F9",
+        "type": "color"
+      },
+      "200": {
+        "value": "#E2E8F0",
+        "type": "color"
+      },
+      "300": {
+        "value": "#CBD5E1",
+        "type": "color"
+      },
+      "400": {
+        "value": "#94A3B8",
+        "type": "color"
+      },
+      "500": {
+        "value": "#64748B",
+        "type": "color"
+      },
+      "600": {
+        "value": "#475569",
+        "type": "color"
+      },
+      "700": {
+        "value": "#334155",
+        "type": "color"
+      },
+      "800": {
+        "value": "#1E293B",
+        "type": "color"
+      },
+      "900": {
+        "value": "#0F172A",
+        "type": "color"
+      }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "sans": {
+        "value": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+      },
+      "mono": {
+        "value": "'JetBrains Mono', 'Fira Code', monospace",
+        "comment": "For VINs, OEM numbers, part numbers"
+      }
+    },
+    "fontSize": {
+      "xs": {
+        "value": "0.75rem",
+        "comment": "12px - Badges, metadata"
+      },
+      "sm": {
+        "value": "0.875rem",
+        "comment": "14px - Mobile body, secondary details"
+      },
+      "base": {
+        "value": "1rem",
+        "comment": "16px - Standard input, primary body"
+      },
+      "lg": {
+        "value": "1.125rem",
+        "comment": "18px - Subheaders, card titles"
+      },
+      "xl": {
+        "value": "1.25rem",
+        "comment": "20px - Screen headers"
+      },
+      "2xl": {
+        "value": "1.5rem",
+        "comment": "24px - Section titles"
+      },
+      "3xl": {
+        "value": "1.875rem",
+        "comment": "30px - Hero banners"
+      }
+    }
+  },
+  "spacing": {
+    "1": {
+      "value": "0.25rem",
+      "comment": "4px"
+    },
+    "2": {
+      "value": "0.5rem",
+      "comment": "8px"
+    },
+    "3": {
+      "value": "0.75rem",
+      "comment": "12px"
+    },
+    "4": {
+      "value": "1rem",
+      "comment": "16px"
+    },
+    "6": {
+      "value": "1.5rem",
+      "comment": "24px"
+    },
+    "8": {
+      "value": "2rem",
+      "comment": "32px"
+    },
+    "12": {
+      "value": "3rem",
+      "comment": "48px"
+    }
+  },
+  "elevation": {
+    "card": {
+      "value": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+    },
+    "dropdown": {
+      "value": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)"
+    },
+    "modal": {
+      "value": "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+    }
+  },
+  "borderRadius": {
+    "sm": {
+      "value": "0.25rem"
+    },
+    "md": {
+      "value": "0.375rem"
+    },
+    "lg": {
+      "value": "0.5rem"
+    },
+    "full": {
+      "value": "9999px"
+    }
+  }
+}
