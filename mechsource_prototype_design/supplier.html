@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MECHSOURCE — Supplier Portal Prototype</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo"><i class="fa-solid fa-gears"></i> MECHSOURCE</a>
+      <span class="tagline">Supplier Control Panel</span>
+      <nav class="portal-nav">
+        <a href="index.html" class="portal-link"><i class="fa-solid fa-user"></i> Customer</a>
+        <a href="supplier.html" class="portal-link active"><i class="fa-solid fa-store"></i> Supplier</a>
+        <a href="service.html" class="portal-link"><i class="fa-solid fa-wrench"></i> Service Provider</a>
+        <a href="admin.html" class="portal-link"><i class="fa-solid fa-shield-halved"></i> Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <div style="background: var(--color-primary); color: white; border-radius: 12px; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="badge" style="background: #D1FAE5; color: #047857; margin-bottom: 0.5rem;"><i class="fa-solid fa-store"></i> ASPAMDA Direct Imports Ltd</span>
+        <h1 style="font-size: 1.5rem; font-weight: 900;">Supplier Control Panel</h1>
+        <p style="font-size: 0.8rem; color: #94A3B8;">Manage spare parts stock, FX price changes, and buyer orders.</p>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 0.75rem; color: #94A3B8;">Escrow Balance Pending</div>
+        <div style="font-size: 1.5rem; font-weight: 900; color: #FB923C;">₦ 425,000</div>
+      </div>
+    </div>
+
+    <!-- INVENTORY TABLE -->
+    <div style="background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-boxes-stacked" style="color: var(--color-accent);"></i> Inventory & Dynamic FX Price Updater</h2>
+        <button onclick="alert('Fast Add Product Form Opened')" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add New Stock</button>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+          <thead>
+            <tr style="background: #F1F5F9; text-align: left; font-weight: 800;">
+              <th style="padding: 0.6rem;">OEM Part #</th>
+              <th style="padding: 0.6rem;">Product Title</th>
+              <th style="padding: 0.6rem;">Quality Tier</th>
+              <th style="padding: 0.6rem;">Stock Status</th>
+              <th style="padding: 0.6rem;">Current Price</th>
+              <th style="padding: 0.6rem;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--color-border);">
+              <td style="padding: 0.6rem; font-family: monospace;">23390-0L070</td>
+              <td style="padding: 0.6rem; font-weight: 700;">Toyota Genuine Fuel Filter Element</td>
+              <td style="padding: 0.6rem;"><span class="badge badge-oem">Genuine OEM</span></td>
+              <td style="padding: 0.6rem; color: #16A34A; font-weight: 700;"><i class="fa-solid fa-circle-check"></i> Confirmed (15 Units)</td>
+              <td style="padding: 0.6rem; font-weight: 800;">₦ 18,500</td>
+              <td style="padding: 0.6rem;">
+                <button onclick="updateFXPrice('23390-0L070')" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.7rem;"><i class="fa-solid fa-pen-to-square"></i> FX Price Edit</button>
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--color-border);">
+              <td style="padding: 0.6rem; font-family: monospace;">D-23390-FL</td>
+              <td style="padding: 0.6rem; font-weight: 700;">Denso Tier-1 Fuel Filter</td>
+              <td style="padding: 0.6rem;"><span class="badge badge-oes">OES</span></td>
+              <td style="padding: 0.6rem; color: #16A34A; font-weight: 700;"><i class="fa-solid fa-circle-check"></i> Confirmed (28 Units)</td>
+              <td style="padding: 0.6rem; font-weight: 800;">₦ 14,200</td>
+              <td style="padding: 0.6rem;">
+                <button onclick="updateFXPrice('D-23390-FL')" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.7rem;"><i class="fa-solid fa-pen-to-square"></i> FX Price Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div><strong>MECHSOURCE Digital Infrastructure Platform</strong> • Lagos • Ogun • Abuja</div>
+      <div>Supplier Portal Prototype</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

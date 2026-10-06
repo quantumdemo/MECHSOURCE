@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MECHSOURCE — Service Provider Prototype</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo"><i class="fa-solid fa-gears"></i> MECHSOURCE</a>
+      <span class="tagline">Technician & Workshop Portal</span>
+      <nav class="portal-nav">
+        <a href="index.html" class="portal-link"><i class="fa-solid fa-user"></i> Customer</a>
+        <a href="supplier.html" class="portal-link"><i class="fa-solid fa-store"></i> Supplier</a>
+        <a href="service.html" class="portal-link active"><i class="fa-solid fa-wrench"></i> Service Provider</a>
+        <a href="admin.html" class="portal-link"><i class="fa-solid fa-shield-halved"></i> Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <div style="background: var(--color-primary); color: white; border-radius: 12px; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="badge" style="background: #D1FAE5; color: #047857; margin-bottom: 0.5rem;"><i class="fa-solid fa-user-check"></i> Engr. Chukwuma (Diesel & Hydraulics)</span>
+        <h1 style="font-size: 1.5rem; font-weight: 900;">Technician & Workshop Portal</h1>
+        <p style="font-size: 0.8rem; color: #94A3B8;">Accept repair requests, verify part fitment, and log completed services.</p>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 0.75rem; color: #94A3B8;">Weekly Job Earnings</div>
+        <div style="font-size: 1.5rem; font-weight: 900; color: #3B82F6;">₦ 165,000</div>
+      </div>
+    </div>
+
+    <!-- JOB CARDS -->
+    <div class="grid-3">
+      <div style="background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="font-size: 0.7rem; background: #DBEAFE; color: #1E40AF; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 800;"><i class="fa-solid fa-wrench"></i> Part Fitment Verification</span>
+          <span style="font-size: 0.75rem; color: #94A3B8;">#JOB-8841</span>
+        </div>
+        <h3 style="font-size: 1rem; font-weight: 800;">Toyota Hilux Fuel Filter Installation</h3>
+        <div style="font-size: 0.75rem; color: var(--color-text-muted);">
+          <div><strong>Customer:</strong> Mr. Tunde Lawson</div>
+          <div><strong>Location:</strong> Ikeja Workshop Bay 3, Lagos</div>
+          <div><strong>Part Status:</strong> Delivered via Courier</div>
+        </div>
+        <div style="border-top: 1px solid var(--color-border); padding-top: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 800; font-size: 0.9rem;">Fee: ₦ 7,500</span>
+          <button onclick="confirmFitment()" class="btn btn-blue" style="font-size: 0.75rem; padding: 0.4rem 0.75rem;"><i class="fa-solid fa-circle-check"></i> Confirm Fitment & Complete</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div><strong>MECHSOURCE Digital Infrastructure Platform</strong> • Lagos • Ogun • Abuja</div>
+      <div>Service Provider Portal Prototype</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
