@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MECHSOURCE — Admin Console Prototype</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo"><i class="fa-solid fa-gears"></i> MECHSOURCE</a>
+      <span class="tagline">Admin Command Dashboard</span>
+      <nav class="portal-nav">
+        <a href="index.html" class="portal-link"><i class="fa-solid fa-user"></i> Customer</a>
+        <a href="supplier.html" class="portal-link"><i class="fa-solid fa-store"></i> Supplier</a>
+        <a href="service.html" class="portal-link"><i class="fa-solid fa-wrench"></i> Service Provider</a>
+        <a href="admin.html" class="portal-link active"><i class="fa-solid fa-shield-halved"></i> Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <div style="background: var(--color-primary); color: white; border-radius: 12px; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span style="background: #DC2626; color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 800; margin-bottom: 0.5rem; inline-block;"><i class="fa-solid fa-shield-halved"></i> Security & Operations</span>
+        <h1 style="font-size: 1.5rem; font-weight: 900;">Admin Command Dashboard</h1>
+        <p style="font-size: 0.8rem; color: #94A3B8;">Oversee merchant verifications, escrow releases, disputes, and system analytics.</p>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 0.75rem; color: #94A3B8;">Total GMV Transacted</div>
+        <div style="font-size: 1.5rem; font-weight: 900; color: #10B981;">₦ 148,500,000</div>
+      </div>
+    </div>
+
+    <!-- ADMIN AUDIT QUEUES -->
+    <div class="grid-3">
+
+      <!-- DISPUTES -->
+      <div style="background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+        <h3 style="font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-scale-balanced" style="color: var(--color-accent);"></i> Dispute Arbitration</h3>
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 0.75rem; border-radius: 8px; font-size: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; font-weight: 800;">
+            <span>Dispute #DSP-302</span>
+            <span style="color: #D97706;">Escrow Frozen: ₦ 28,000</span>
+          </div>
+          <p style="margin-top: 0.25rem;"><strong>Claim:</strong> Buyer reports fuel filter housing casting flaw.</p>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <button onclick="approveRefund()" class="btn btn-accent" style="font-size: 0.7rem; padding: 0.3rem 0.5rem;">Refund Buyer</button>
+            <button onclick="alert('Released to Merchant')" class="btn btn-primary" style="font-size: 0.7rem; padding: 0.3rem 0.5rem;">Release to Merchant</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAC VERIFICATION -->
+      <div style="background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+        <h3 style="font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-id-card" style="color: var(--color-blue);"></i> CAC Merchant Audit Queue</h3>
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 0.75rem; border-radius: 8px; font-size: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; font-weight: 800;">
+            <span>Zuba Commercial Parts Hub</span>
+            <span style="color: #2563EB;">RC-184920</span>
+          </div>
+          <p style="margin-top: 0.25rem;"><strong>Docs:</strong> CAC Cert & Shop Audit Photos attached.</p>
+          <div style="margin-top: 0.5rem;">
+            <button onclick="approveMerchant()" class="btn btn-blue" style="font-size: 0.7rem; padding: 0.3rem 0.5rem;">Approve Verification</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div><strong>MECHSOURCE Digital Infrastructure Platform</strong> • Lagos • Ogun • Abuja</div>
+      <div>Admin Operations Dashboard</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

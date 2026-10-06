@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MECHSOURCE — Customer Portal Prototype</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER & PORTAL SWITCHER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-gears"></i> MECHSOURCE
+      </a>
+      <span class="tagline">Find the Right Part. Find the Right Supplier. Get it Delivered.</span>
+      <nav class="portal-nav">
+        <a href="index.html" class="portal-link active"><i class="fa-solid fa-user"></i> Customer</a>
+        <a href="supplier.html" class="portal-link"><i class="fa-solid fa-store"></i> Supplier</a>
+        <a href="service.html" class="portal-link"><i class="fa-solid fa-wrench"></i> Service Provider</a>
+        <a href="admin.html" class="portal-link"><i class="fa-solid fa-shield-halved"></i> Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="main-container">
+
+    <!-- HERO SEARCH CARD -->
+    <section class="hero-card">
+      <div class="hero-pill"><i class="fa-solid fa-shield-check"></i> Escrow Guaranteed • Verified Fitment • Lagos • Ogun • Abuja</div>
+      <h1 class="hero-title">Find the Exact Part for Your Vehicle or Machinery</h1>
+      <p style="font-size: 0.9rem; color: #CBD5E1;">
+        Multi-modal discovery via Vehicle YMMT, 17-digit VIN Scanner, OEM Part #, Local Slang (<em>"Brainbox"</em>), or Visual AI.
+      </p>
+
+      <!-- 5 SEARCH TABS -->
+      <div class="search-tab-bar">
+        <button onclick="switchSearchTab('ymmt')" id="tab-ymmt" class="search-tab active"><i class="fa-solid fa-car"></i> Vehicle (YMMT)</button>
+        <button onclick="switchSearchTab('vin')" id="tab-vin" class="search-tab"><i class="fa-solid fa-barcode"></i> VIN Lookup</button>
+        <button onclick="switchSearchTab('slang')" id="tab-slang" class="search-tab"><i class="fa-solid fa-language"></i> Local Slang</button>
+        <button onclick="switchSearchTab('ai')" id="tab-ai" class="search-tab"><i class="fa-solid fa-camera"></i> Visual AI Scanner</button>
+        <button onclick="switchSearchTab('oem')" id="tab-oem" class="search-tab"><i class="fa-solid fa-hashtag"></i> OEM Part #</button>
+      </div>
+
+      <!-- SEARCH PANELS -->
+      <div class="search-input-panel">
+
+        <!-- YMMT -->
+        <div id="panel-ymmt" class="grid-4">
+          <div class="form-group">
+            <label class="form-label">Make</label>
+            <select class="form-control"><option>Toyota</option><option>Honda</option><option>Mercedes-Benz</option><option>Caterpillar</option></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Year</label>
+            <select class="form-control"><option>2018</option><option>2015</option><option>2010</option></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Model</label>
+            <select class="form-control"><option>Hilux 2.8L Diesel</option><option>Corolla 1.8L</option></select>
+          </div>
+          <div class="form-group" style="justify-content: flex-end;">
+            <button onclick="executeSearch('Toyota Hilux 2018 2.8L Diesel Filter')" class="btn btn-accent"><i class="fa-solid fa-magnifying-glass"></i> Find Parts</button>
+          </div>
+        </div>
+
+        <!-- VIN -->
+        <div id="panel-vin" style="display: none;" class="form-group">
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" placeholder="Enter 17-digit Chassis / VIN (e.g. AHTFR22G...)" class="form-control" style="font-family: monospace;">
+            <button onclick="executeSearch('VIN: AHTFR22G... - Toyota Hilux 2018')" class="btn btn-blue">Decode VIN</button>
+          </div>
+        </div>
+
+        <!-- LOCAL SLANG -->
+        <div id="panel-slang" style="display: none;" class="form-group">
+          <div style="display: flex; gap: 0.5rem;">
+            <input id="inp-slang" type="text" value="Toyota Corolla 2010 brainbox" class="form-control">
+            <button onclick="executeSlangSearch()" class="btn btn-accent">Search Slang</button>
+          </div>
+          <div style="font-size: 0.75rem; color: #B45309; background-color: #FEF3C7; padding: 0.5rem; border-radius: 6px; margin-top: 0.5rem;">
+            <i class="fa-solid fa-language"></i> <strong>Local Slang Detector Active:</strong> <em>"Brainbox"</em> mapped to <strong>Engine Control Module (ECU)</strong>.
+          </div>
+        </div>
+
+        <!-- VISUAL AI -->
+        <div id="panel-ai" style="display: none;" class="form-group">
+          <div style="border: 2 border-dashed #D8B4FE; background: #F3E8FF; padding: 1.5rem; text-align: center; border-radius: 8px;">
+            <p style="font-size: 0.85rem; color: #6B21A8; font-weight: 700; margin-bottom: 0.5rem;">Upload or snap a photo of the unknown part</p>
+            <button onclick="simulateAIScan()" class="btn btn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Simulate AI Analysis</button>
+          </div>
+          <div id="ai-result-box" style="display: none; background: #F1F5F9; padding: 0.75rem; border-radius: 8px; margin-top: 0.5rem; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 0.85rem;">Fuel Filter Assembly</strong>
+              <div style="font-size: 0.75rem; color: #6B21A8; font-weight: 700;"><i class="fa-solid fa-microchip"></i> AI Match Confidence: 92%</div>
+            </div>
+            <button onclick="executeSearch('Fuel Filter Assembly')" class="btn btn-accent">View Offers</button>
+          </div>
+        </div>
+
+        <!-- OEM -->
+        <div id="panel-oem" style="display: none;" class="form-group">
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" placeholder="Enter OEM Part # (e.g. 23390-0L070)" class="form-control" style="font-family: monospace;">
+            <button onclick="executeSearch('OEM: 23390-0L070')" class="btn btn-primary">Lookup OEM</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- QUICK ACTIONS -->
+    <section class="grid-3">
+      <div class="quick-card sos">
+        <div>
+          <span style="font-size: 0.65rem; background: #DC2626; color: white; padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 800;">24/7 SOS</span>
+          <h3 style="font-size: 1rem; font-weight: 800;">Emergency Breakdown</h3>
+          <p style="font-size: 0.75rem; color: #64748B;">Dispatch roadside assistance in Lagos/Ogun/Abuja.</p>
+        </div>
+        <button onclick="triggerSOS()" class="btn btn-accent"><i class="fa-solid fa-truck-medical"></i> SOS</button>
+      </div>
+
+      <div class="quick-card">
+        <div>
+          <span style="font-size: 0.65rem; background: #2563EB; color: white; padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 800;">GARAGE</span>
+          <h3 style="font-size: 1rem; font-weight: 800;">Fleet & Service Log</h3>
+          <p style="font-size: 0.75rem; color: #64748B;">3 Vehicles Logged • Next service due.</p>
+        </div>
+        <button onclick="triggerFleetModal()" class="btn btn-blue">Manage</button>
+      </div>
+
+      <div class="quick-card">
+        <div>
+          <span style="font-size: 0.65rem; background: #0F172A; color: white; padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 800;">B2B</span>
+          <h3 style="font-size: 1rem; font-weight: 800;">Bulk RFQ & LPO</h3>
+          <p style="font-size: 0.75rem; color: #64748B;">Request corporate credit & formal quotes.</p>
+        </div>
+        <button onclick="triggerRFQModal()" class="btn btn-outline">Build RFQ</button>
+      </div>
+    </section>
+
+    <!-- PRODUCT MARKETPLACE RESULTS -->
+    <section id="results-section" style="display: flex; flex-direction: column; gap: 1rem;">
+      <div>
+        <h2 id="results-title" style="font-size: 1.25rem; font-weight: 800;">Compatible Spare Parts Offers</h2>
+        <p style="font-size: 0.75rem; color: var(--color-text-muted);">Showing verified listings compatible with: <strong id="vehicle-tag">Toyota Hilux 2018 2.8L Diesel</strong></p>
+      </div>
+
+      <div class="grid-3">
+
+        <!-- CARD 1: GENUINE OEM -->
+        <div class="product-card">
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span class="badge badge-oem"><i class="fa-solid fa-circle-check"></i> Genuine OEM</span>
+              <span class="badge" style="background: #D1FAE5; color: #047857;"><i class="fa-solid fa-shield-halved"></i> CAC Verified</span>
+            </div>
+            <div style="font-family: monospace; font-size: 0.7rem; color: #94A3B8;">OEM # 23390-0L070</div>
+            <h3 style="font-size: 1rem; font-weight: 800; margin-top: 0.25rem;">Toyota Genuine Fuel Filter Element</h3>
+            <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.5rem;">
+              <div><strong>Supplier:</strong> ASPAMDA Direct Imports Ltd (Lagos)</div>
+              <div><strong>Stock Status:</strong> <span style="color: #16A34A; font-weight: 700;"><i class="fa-solid fa-square-check"></i> In Stock</span></div>
+            </div>
+          </div>
+          <div style="border-top: 1px solid var(--color-border); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 0.65rem; color: #94A3B8;">Price (Escrow Safe)</div>
+              <div class="price-tag">₦ 18,500</div>
+            </div>
+            <button onclick="addToCart('Toyota Genuine Fuel Filter Element', 18500, 'Genuine OEM')" class="btn btn-accent"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- CARD 2: OES (DENSO) -->
+        <div class="product-card">
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span class="badge badge-oes"><i class="fa-solid fa-industry"></i> OES (Denso)</span>
+              <span class="badge" style="background: #D1FAE5; color: #047857;"><i class="fa-solid fa-shield-halved"></i> CAC Verified</span>
+            </div>
+            <div style="font-family: monospace; font-size: 0.7rem; color: #94A3B8;">Part # D-23390-FL</div>
+            <h3 style="font-size: 1rem; font-weight: 800; margin-top: 0.25rem;">Denso Tier-1 OEM Supplier Fuel Filter</h3>
+            <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.5rem;">
+              <div><strong>Supplier:</strong> Ladipo Mega Spares Line 4 (Lagos)</div>
+              <div><strong>Stock Status:</strong> <span style="color: #16A34A; font-weight: 700;"><i class="fa-solid fa-square-check"></i> Stock Confirmed</span></div>
+            </div>
+          </div>
+          <div style="border-top: 1px solid var(--color-border); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 0.65rem; color: #94A3B8;">Price (Escrow Safe)</div>
+              <div class="price-tag">₦ 14,200</div>
+            </div>
+            <button onclick="addToCart('Denso OEM Supplier Fuel Filter', 14200, 'OES')" class="btn btn-accent"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- CARD 3: TESTED TOKUNBO -->
+        <div class="product-card">
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span class="badge badge-tokunbo"><i class="fa-solid fa-box-open"></i> Tested Tokunbo</span>
+              <span class="badge" style="background: #FEF3C7; color: #B45309;"><i class="fa-solid fa-microscope"></i> Bench Tested</span>
+            </div>
+            <div style="font-family: monospace; font-size: 0.7rem; color: #94A3B8;">Ref # TK-HILUX-2018</div>
+            <h3 style="font-size: 1rem; font-weight: 800; margin-top: 0.25rem;">Original Tested Tokunbo Fuel Housing</h3>
+            <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.5rem;">
+              <div><strong>Supplier:</strong> Zuba Commercial Parts Hub (Abuja)</div>
+              <div><strong>Stock Status:</strong> <span style="color: #D97706; font-weight: 700;"><i class="fa-solid fa-clock"></i> 1 Unit Left</span></div>
+            </div>
+          </div>
+          <div style="border-top: 1px solid var(--color-border); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 0.65rem; color: #94A3B8;">Price (Escrow Safe)</div>
+              <div class="price-tag">₦ 28,000</div>
+            </div>
+            <button onclick="addToCart('Tested Tokunbo Fuel Housing', 28000, 'Tokunbo')" class="btn btn-accent"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SHOPPING CART & ESCROW PANEL -->
+    <section id="cart-drawer" style="background: white; border: 2px solid var(--color-primary); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-cart-shopping" style="color: var(--color-accent);"></i> Your Cart & Escrow Protection</h3>
+        <span class="badge badge-escrow"><i class="fa-solid fa-lock"></i> MECHSOURCE Escrow Active</span>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+        <div>
+          <strong id="cart-item-name">Toyota Genuine Fuel Filter Element</strong>
+          <div style="font-size: 0.75rem; color: var(--color-text-muted);">Quality: <span id="cart-item-tier" style="font-weight: 700;">Genuine OEM</span> • Fitment Guaranteed</div>
+        </div>
+        <div style="font-weight: 800; font-size: 1rem;" id="cart-item-price">₦ 18,500</div>
+      </div>
+
+      <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 0.75rem; border-radius: 8px; font-size: 0.75rem; color: var(--color-text-muted);">
+        <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;"><i class="fa-solid fa-shield-halved" style="color: #16A34A;"></i> Escrow Guarantee:</strong>
+        Your payment of <strong id="cart-total-price">₦ 18,500</strong> is locked safely in escrow (Paystack/Monnify). Courier delivers to your workshop floor in Lagos/Ogun/Abuja. You have <strong>48 Hours</strong> to inspect before funds are released.
+      </div>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <button onclick="triggerCheckout()" class="btn btn-accent"><i class="fa-solid fa-credit-card"></i> Pay via Escrow & Track Delivery</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div><strong>MECHSOURCE Digital Infrastructure Platform</strong> • Lagos • Ogun • Abuja</div>
+      <div>Customer Portal Prototype • Pure HTML / CSS / JS</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
